@@ -86,7 +86,6 @@ document.addEventListener("scroll", () => {
     let posArray = [];
     allSections.forEach((ele, ind) => {
         let pos = ele.getBoundingClientRect().top;
-        console.log("pos going to posArray: ", pos);
         posArray.push(pos);
     })
      
