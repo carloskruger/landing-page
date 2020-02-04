@@ -40,11 +40,40 @@ let myNavBar = document.getElementById('navbar__list');
 
 let allSections = document.querySelectorAll('section');
 
+function getYCoordinates(i){
+
+    let yCoordArray = [];
+    allSections.forEach((ele, ind) => {
+    let posY = ele.getBoundingClientRect().top;
+    yCoordArray.push(posY);
+    });
+    return yCoordArray[i];
+}
+
+
+function getXCoordinates(i){
+
+    let xCoordArray = [];
+    allSections.forEach((ele, ind) => {
+    let posX = ele.getBoundingClientRect().left;
+    xCoordArray.push(posX);
+    });
+    return xCoordArray[i];
+
+}
+
+
+
 function buildLinks(myNavBar, allSections){
- 
+  
+   
     for (let i = 0; i < allSections.length; i++){
         let link = document.createElement('li')
         let myAnchor = document.createElement('a')
+        let yCoord = getYCoordinates(i)
+        let xCoord = getXCoordinates(i)
+        console.log(yCoord);
+        console.log(xCoord);
         if (myAnchor.id=="s1") myAnchor.classList = "highlight"
         myAnchor.id="s"+(i+1);
         myAnchor.href = "#section"+(i+1);
@@ -54,12 +83,46 @@ function buildLinks(myNavBar, allSections){
     
     }
     
+
 }
 
 buildLinks(myNavBar, allSections);
 
 
+let AllLinks = document.getElementsByTagName("a");
 
+function addEventListeners(AllLinks){
+    for(let i = 0; i < AllLinks.length;i++){
+        AllLinks[i].addEventListener('click',() => { 
+            let x, y = 50;
+            let anchor = event.target;
+            let dest = document.getElementById('section'+anchor.id.slice(1));
+            console.log(dest);
+            y = dest.getBoundingClientRect().top;
+            x = dest.getBoundingClientRect().right;
+            console.log("x: ", x)
+            console.log("y: ", y)
+           event.preventDefault();
+            window.scrollTo(x, y);
+        
+        })
+
+
+    }
+
+
+
+
+
+}
+
+
+
+
+//a.addEventListener('click', () => console.log(a.href));
+
+
+ 
 
 
 // Add class 'active' to section when near top of viewport
@@ -80,7 +143,7 @@ buildLinks(myNavBar, allSections);
 // Scroll to section on link click
 
 // Set sections as active
-let length = allSections.length;
+let sectionsLength = allSections.length;
 
 document.addEventListener("scroll", () => {
     let posArray = [];
@@ -91,13 +154,13 @@ document.addEventListener("scroll", () => {
      
     let candidate = posArray.findIndex(el => el > 0);
    
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < sectionsLength; i++) {
         if (i === candidate) {
             document.getElementById(`section${i+1}`).classList.add("your-active-class");
-            document.getElementById(`s${i+1}`).classList.add("hightlight");   
+            document.getElementById(`s${i+1}`).classList.add("highlight");   
         } else {
             document.getElementById(`section${i+1}`).classList.remove("your-active-class");
-            document.getElementById(`s${i+1}`).classList.remove("hightlight");
+            document.getElementById(`s${i+1}`).classList.remove("highlight");
         }
     }
 })

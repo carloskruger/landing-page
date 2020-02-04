@@ -81,11 +81,11 @@ section {
     
     text-decoration: none;
     font-family: 'Fira Sans', sans-serif;
-    font-size: 3em;
-    padding: 15px;
+    font-size: 2em;
+    padding: 10px;
 }
 
-.highlight {
+.navbar__menu li a.highlight {
     color: green;
     background-color: yellow;
 }
@@ -146,6 +146,7 @@ section:nth-of-type(even) .landing__container {
     margin-left: auto;
     text-align: right; 
 }
+
 
 /* Background Circles */
 /* Note that background circles are created with psuedo elements before and after */
