@@ -8,6 +8,11 @@
  *
 */
 
+/* The following line was added to the styles CSS page to attain and smooth scroll */
+
+html {
+    scroll-behavior: smooth;
+  }
 
 /* ---- Base Rules ---- */
 body {
