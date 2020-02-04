@@ -40,6 +40,11 @@ let myNavBar = document.getElementById('navbar__list');
 
 let allSections = document.querySelectorAll('section');
 
+// getYCoordinates and GetXCoordinates are no longer used. 
+//They got the coordinates from the different sections by passing the 
+// index number of the section. They are useful only for the initial
+// creation of the links
+
 function getYCoordinates(i){
 
     let yCoordArray = [];
@@ -62,7 +67,7 @@ function getXCoordinates(i){
 
 }
 
-
+// This is the function that builds the links dynamically
 
 function buildLinks(myNavBar, allSections){
   
@@ -70,10 +75,7 @@ function buildLinks(myNavBar, allSections){
     for (let i = 0; i < allSections.length; i++){
         let link = document.createElement('li')
         let myAnchor = document.createElement('a')
-        let yCoord = getYCoordinates(i)
-        let xCoord = getXCoordinates(i)
-        console.log(yCoord);
-        console.log(xCoord);
+      
         if (myAnchor.id=="s1") myAnchor.classList = "highlight"
         myAnchor.id="s"+(i+1);
         myAnchor.href = "#section"+(i+1);
@@ -82,41 +84,37 @@ function buildLinks(myNavBar, allSections){
         myNavBar.appendChild(link)
     
     }
-    
-
 }
+
+
+// This is the actual call to the buildLinks fanction
 
 buildLinks(myNavBar, allSections);
 
 
 let AllLinks = document.getElementsByTagName("a");
 
+
+// This function adds event listeners to all anchors 
+// for clicks 
+// it gets the destination section, gets its coordinates and scrolls to the destination
 function addEventListeners(AllLinks){
     for(let i = 0; i < AllLinks.length;i++){
         AllLinks[i].addEventListener('click',() => { 
             let x, y = 50;
             let anchor = event.target;
             let dest = document.getElementById('section'+anchor.id.slice(1));
-            console.log(dest);
-            y = dest.getBoundingClientRect().top;
+            y = dest.getBoundingClientRect().top - 15;
             x = dest.getBoundingClientRect().right;
-            console.log("x: ", x)
-            console.log("y: ", y)
-           event.preventDefault();
             window.scrollTo(x, y);
         
         })
-
-
     }
-
-
-
-
-
 }
 
 
+// This is the actual call to the addEventListeners function
+addEventListeners(AllLinks)
 
 
 //a.addEventListener('click', () => console.log(a.href));
@@ -143,7 +141,13 @@ function addEventListeners(AllLinks){
 // Scroll to section on link click
 
 // Set sections as active
+
+// 
 let sectionsLength = allSections.length;
+
+// This adds an event listner to the scroll 
+// It gets the top coordinates of the different sections
+// and modifies the sections that are active
 
 document.addEventListener("scroll", () => {
     let posArray = [];
